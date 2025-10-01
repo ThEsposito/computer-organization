@@ -1,29 +1,28 @@
-# -------------------------------------------------------------------------
-# Escreva um programa usando a linguagem de montagem do MIPS para gerar a 
-# sequência de Fibonacci através de uma função (a chamada da função é 
-# através da instrução JAL e o retorno com JR) e imprimir a sequência com
-# o separador vírgula entre os números, conforme exemplo acima. O usuário 
-# deve informar, via teclado, a quantidade de termos da sequência. Inclua
-# uma função aleatória no código.
-#---------------------------------------------------------------------------
+# Fn= Fn-1 + Fn-2 - Sendo, F1=1 e F0=0
+# (a chamada da funcao atraves da instrucao JAL e o retorno com JR)
+
+.data
+
+mensagem1: .asciiz "Digite quantos numeros haverao na sequencia: "
+num: .half 1
+num2: .half 1
+
+.text
+
+leituraEntrada:
+# impressao da mensagem
+li $v0, 4
+la $a0, mensagem1
+syscall
+
+# leitura de inteiro - quantos numeros haverao na sequencia
+li $v0, 5
+syscall
+move $t1, $v0   # guarda o valor lido em $t1
+blez $t1, leituraEntrada # volta para mensagem se o nro digitado for menor ou igual a 0
+
+# registra nos regs. salvos o valor 1 que serao sempre o come�o da sequencia
+li $s0, 1
+li $s1, 1
 
 
-.data:
-msg1: .asciiz "Digite o número: "
-virgula: .asciiz ", "
-
-.text:
-main: 
-    # Exibir mensagem: 
-    li $v0, 4
-    la $a0, $msg1
-    syscall
-
-    # Lendo inteiro
-    li $v0, 5
-    syscall
-
-    move $t0, $a0 # guardando inteiro em $t0
-
-fib: 
-    
